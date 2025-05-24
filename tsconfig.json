@@ -6,6 +6,8 @@
     "rootDir": ".",
     "outDir": "./dist",
     "declaration": true,
+    "verbatimModuleSyntax": true,
+    "erasableSyntaxOnly": true,
 
     "forceConsistentCasingInFileNames": true,
     "strict": true,

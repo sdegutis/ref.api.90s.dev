@@ -1,4 +1,4 @@
-import { Listener, ListenerDone } from "./listener.js"
+import { Listener, type ListenerDone } from "./listener.js"
 
 export type Equals<T> = (a: T, b: T) => boolean
 
