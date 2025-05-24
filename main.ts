@@ -1,32 +1,28 @@
 import { DevServer, FileTree, generateFiles, Pipeline } from "immaculata"
-import { readFileSync, rmSync } from 'node:fs'
+import { readFileSync } from 'node:fs'
 import { stripTypeScriptTypes } from 'node:module'
 import { join } from 'node:path'
 
-const projectRoot = import.meta.dirname
+const isDev = process.argv[2] === 'dev'
 
-const dev = process.argv[2] === 'dev' && {
-  port: 8181,
-  generateFiles: true,
-}
+const src = new FileTree('src', import.meta.dirname)
 
-const src = new FileTree('src', projectRoot)
-
-const pkgjson = JSON.parse(readFileSync(join(projectRoot, 'package.json'), 'utf8'))
+const pkgjson = JSON.parse(readFileSync(join(import.meta.dirname, 'package.json'), 'utf8'))
 const prefix = new URL(pkgjson.homepage).pathname.replace(/\/+$/, '')
 
-if (dev) {
-  const server = new DevServer(dev.port, { prefix })
-  processSite(server)
+if (isDev) {
+  const server = new DevServer(8181, { prefix })
+  server.files = processSite()
+
   src.watch().on('filesUpdated', () => {
-    processSite(server)
+    server.files = processSite()
   })
 }
 else {
-  processSite()
+  generateFiles(processSite())
 }
 
-function processSite(server?: DevServer) {
+function processSite() {
   const files = Pipeline.from(src.files)
 
   files.with(/\.tsx?$/).do(file => {
@@ -34,14 +30,5 @@ function processSite(server?: DevServer) {
     file.path = file.path.replace(/\.tsx?$/, '.js')
   })
 
-  const map = files.results()
-
-  if (server) server.files = map
-
-  if (!dev || dev.generateFiles) {
-    rmSync('docs', { force: true, recursive: true })
-    generateFiles(map)
-  }
-
-  return map
+  return files.results()
 }
