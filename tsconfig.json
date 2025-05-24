@@ -5,6 +5,7 @@
     "jsx": "react-native",
     "rootDir": ".",
     "outDir": "./dist",
+    "declaration": true,
 
     "forceConsistentCasingInFileNames": true,
     "strict": true,

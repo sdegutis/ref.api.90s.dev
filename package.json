@@ -1,7 +1,6 @@
 {
   "name": "ref.api.90s.dev",
   "homepage": "https://ref.api.90s.dev/",
-  "types": "./src",
   "exports": {
     "./*": "./dist/src/*"
   },
