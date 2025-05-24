@@ -1,6 +1,6 @@
 {
-  "name": "quickexport-starter",
-  "homepage": "https://sdegutis.github.io/quickexport-starter/",
+  "name": "ref.api.90s.dev",
+  "homepage": "https://ref.api.90s.dev/",
   "exports": {
     "./*": "./src/*"
   },
