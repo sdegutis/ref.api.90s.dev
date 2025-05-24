@@ -12,7 +12,7 @@
   "type": "module",
   "devDependencies": {
     "@types/node": "^22.15.21",
-    "immaculata": "^2.2.2",
+    "immaculata": "^2.3.0",
     "typescript": "^5.8.3"
   }
 }

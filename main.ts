@@ -19,7 +19,7 @@ if (isDev) {
   })
 }
 else {
-  generateFiles(processSite())
+  generateFiles(processSite(), { parent: import.meta.dirname })
 }
 
 function processSite() {
