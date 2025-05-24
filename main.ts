@@ -1,6 +1,6 @@
-import { transformSync } from '@babel/core'
 import { DevServer, FileTree, generateFiles, Pipeline } from "immaculata"
 import { readFileSync, rmSync } from 'node:fs'
+import { stripTypeScriptTypes } from 'node:module'
 import { join } from 'node:path'
 
 const projectRoot = import.meta.dirname
@@ -30,14 +30,8 @@ function processSite(server?: DevServer) {
   const files = Pipeline.from(src.files)
 
   files.with(/\.tsx?$/).do(file => {
-    const result = transform(file.path, file.text)!
+    file.text = stripTypeScriptTypes(file.text, { mode: 'transform', sourceMap: true })
     file.path = file.path.replace(/\.tsx?$/, '.js')
-
-    const mapPath = file.path + '.map'
-    const sourceMapPart = '\n//# sourceMappingURL=' + prefix + mapPath
-    file.text = result.code! + sourceMapPart
-
-    files.add(mapPath, JSON.stringify(result.map))
   })
 
   const map = files.results()
@@ -50,15 +44,4 @@ function processSite(server?: DevServer) {
   }
 
   return map
-}
-
-function transform(path: string, text: string) {
-  return transformSync(text, {
-    sourceMaps: true,
-    filename: path,
-    plugins: [
-      ['@babel/plugin-transform-typescript', { isTSX: true }],
-      ['@babel/plugin-transform-react-jsx', { runtime: 'automatic' }],
-    ],
-  })
 }

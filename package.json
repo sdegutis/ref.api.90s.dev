@@ -1,23 +1,19 @@
 {
   "name": "ref.api.90s.dev",
   "homepage": "https://ref.api.90s.dev/",
+  "types": "./src",
   "exports": {
-    "./*": "./src/*"
+    "./*": "./dist/src/*"
   },
   "version": "1.0.0",
   "scripts": {
-    "watch": "tsc --watch"
+    "watch": "tsc --watch --noEmit",
+    "postinstall": "tsc"
   },
   "type": "module",
   "devDependencies": {
     "@types/node": "^22.15.21",
     "immaculata": "^2.2.2",
     "typescript": "^5.8.3"
-  },
-  "dependencies": {
-    "@babel/core": "^7.27.1",
-    "@babel/plugin-transform-react-jsx": "^7.27.1",
-    "@babel/plugin-transform-typescript": "^7.27.1",
-    "@types/babel__core": "^7.20.5"
   }
 }
