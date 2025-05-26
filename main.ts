@@ -1,17 +1,10 @@
 import { DevServer, FileTree, generateFiles, Pipeline } from "immaculata"
-import { readFileSync } from 'node:fs'
 import { stripTypeScriptTypes } from 'node:module'
-import { join } from 'node:path'
-
-const isDev = process.argv[2] === 'dev'
 
 const src = new FileTree('src', import.meta.dirname)
 
-const pkgjson = JSON.parse(readFileSync(join(import.meta.dirname, 'package.json'), 'utf8'))
-const prefix = new URL(pkgjson.homepage).pathname.replace(/\/+$/, '')
-
-if (isDev) {
-  const server = new DevServer(8181, { prefix })
+if (process.argv[2] === 'dev') {
+  const server = new DevServer(8181)
   server.files = processSite()
 
   src.watch().on('filesUpdated', () => {

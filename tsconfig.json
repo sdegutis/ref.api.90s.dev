@@ -4,12 +4,11 @@
     "module": "NodeNext",
     "jsx": "react-native",
     "rootDir": ".",
-    "outDir": "./dist",
-    "declaration": true,
+    "noEmit": true,
     "verbatimModuleSyntax": true,
     "erasableSyntaxOnly": true,
-
     "forceConsistentCasingInFileNames": true,
+    // strictness
     "strict": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,

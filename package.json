@@ -2,12 +2,11 @@
   "name": "ref.api.90s.dev",
   "homepage": "https://ref.api.90s.dev/",
   "exports": {
-    "./*": "./dist/src/*"
+    "./*": "./src/*"
   },
   "version": "1.0.0",
   "scripts": {
-    "watch": "tsc --watch --noEmit",
-    "postinstall": "tsc"
+    "watch": "tsc --watch"
   },
   "type": "module",
   "devDependencies": {
